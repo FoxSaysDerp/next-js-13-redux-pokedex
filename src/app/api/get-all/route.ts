@@ -1,11 +1,6 @@
 import axios from "axios";
 import { NextResponse } from "next/server";
-import { Pokemon } from "@/types";
-
-interface Pokedex {
-	count: number;
-	result: Pokemon[];
-}
+import { Pokedex } from "@/types";
 
 async function getAllPokemon(): Promise<Pokedex | string> {
 	try {
