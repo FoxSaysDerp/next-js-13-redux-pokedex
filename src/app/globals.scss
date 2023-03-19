@@ -107,6 +107,16 @@ a {
 	}
 }
 
+.main-container {
+	margin: auto;
+	max-width: 1120px;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
 a.button {
 	color: var(--black);
 	background-color: var(--white);
