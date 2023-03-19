@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Pokedex } from "@/types";
-import PokemonTable from "@/components/PokemonTable";
+import PokemonTable from "@/components/PokemonTable/PokemonTable";
 
 export default async function PokedexPage() {
 	const { data } = await axios.get<Pokedex>(
