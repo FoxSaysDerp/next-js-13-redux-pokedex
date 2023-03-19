@@ -1,0 +1,29 @@
+.id {
+	display: inline-block;
+	text-align: right;
+	font-weight: 700;
+	margin-right: 8px;
+	min-width: 40px;
+}
+
+.table {
+	th,
+	td {
+		position: relative;
+		&:after {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: calc(100% + 2px);
+			background-color: var(--white);
+			height: 1px;
+		}
+	}
+	th {
+		padding: 3px 5px;
+	}
+	td {
+		padding: 7px 5px 3px;
+	}
+}

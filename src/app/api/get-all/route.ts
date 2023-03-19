@@ -1,11 +1,11 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
-import { Pagination, Pokedex } from "@/types";
+import { Pagination, Pokedex, PokedexWithIds } from "@/types";
 
 async function getAllPokemon({
 	offset,
 	limit,
-}: Pagination): Promise<Pokedex | string> {
+}: Pagination): Promise<PokedexWithIds | string> {
 	try {
 		const { data } = await axios.get<Pokedex>(
 			`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`,
@@ -15,7 +15,12 @@ async function getAllPokemon({
 				},
 			}
 		);
-		return data;
+		let pokemonData: PokedexWithIds = data;
+		pokemonData.results.forEach((_, index) => {
+			pokemonData.results[index].id = offset + (index + 1);
+		});
+
+		return pokemonData;
 	} catch (error) {
 		if (axios.isAxiosError(error)) {
 			console.log("error message: ", error.message);
