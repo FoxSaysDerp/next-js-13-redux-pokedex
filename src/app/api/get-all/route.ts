@@ -1,11 +1,14 @@
 import axios from "axios";
-import { NextResponse } from "next/server";
-import { Pokedex } from "@/types";
+import { NextRequest, NextResponse } from "next/server";
+import { Pagination, Pokedex } from "@/types";
 
-async function getAllPokemon(): Promise<Pokedex | string> {
+async function getAllPokemon({
+	offset,
+	limit,
+}: Pagination): Promise<Pokedex | string> {
 	try {
 		const { data } = await axios.get<Pokedex>(
-			"https://pokeapi.co/api/v2/pokemon/",
+			`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`,
 			{
 				headers: {
 					Accept: "application/json",
@@ -24,8 +27,15 @@ async function getAllPokemon(): Promise<Pokedex | string> {
 	}
 }
 
-export async function GET() {
-	const data = await getAllPokemon();
+export async function GET(req: NextRequest) {
+	const { searchParams } = new URL(req.url);
+	const offset = searchParams.get("offset");
+	const limit = searchParams.get("limit");
+
+	const data = await getAllPokemon({
+		offset: Number(offset),
+		limit: Number(limit),
+	});
 
 	return NextResponse.json(data);
 }
