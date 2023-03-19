@@ -1,6 +1,9 @@
-import { Pokemon, Reference } from "@/types";
+import { Reference } from "@/types";
 
 const PokemonTable = ({ pokemon }: { pokemon: Reference[] }) => {
+	if (!pokemon) {
+		return <div>No Pokemon found {":("}</div>;
+	}
 	return (
 		<table>
 			<thead>
@@ -9,7 +12,7 @@ const PokemonTable = ({ pokemon }: { pokemon: Reference[] }) => {
 				</tr>
 			</thead>
 			<tbody>
-				{pokemon.map((pokemonItem) => (
+				{pokemon?.map((pokemonItem) => (
 					<tr key={pokemonItem.name}>
 						<td>{pokemonItem.name}</td>
 					</tr>
